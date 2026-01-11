@@ -8,7 +8,7 @@ const app = express();
 // Middleware
 
 app.use(cors({
-  origin: "https://mern-e-commerce-nine-ivory.vercel.app/"
+  origin: "https://mern-e-commerce-nine-ivory.vercel.app"
 }));
 app.use(express.json());
 
