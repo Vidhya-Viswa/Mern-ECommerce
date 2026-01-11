@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+
 const productSchema = new mongoose.Schema({
   name: String,
   description: String,
@@ -8,4 +9,5 @@ const productSchema = new mongoose.Schema({
   stock: Number,
   discount: { type: Number, default: 0 }  // New: Discount percentage
 });
+
 module.exports = mongoose.model('Product', productSchema);

@@ -7,6 +7,7 @@ import { setAuth } from '../redux/slices/authSlice';
 import { motion } from 'framer-motion';
 
 function Signup() {
+  const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000';
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -16,14 +17,18 @@ function Signup() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+
       // Register the user
-      await axios.post('http://localhost:5000/api/auth/register', { name, email, password });
+
+      await axios.post(`${API_URL}/api/auth/register`, { name, email, password });
       
       // Automatically log them in
-      const loginRes = await axios.post('http://localhost:5000/api/auth/login', { email, password });
+
+      const loginRes = await axios.post(`${API_URL}/api/auth/login`, { email, password });
       dispatch(setAuth(loginRes.data));
       
       // Redirect to homepage
+      
       navigate('/');
     } catch (err) {
       alert('Signup failed: ' + (err.response?.data?.error || 'Unknown error'));

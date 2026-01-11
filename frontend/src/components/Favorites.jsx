@@ -8,7 +8,7 @@ function Favorites() {
   const dispatch = useDispatch();
 
   return (
-    <div className="bg-gray-900 text-white p-8 max-w-7xl mx-auto pt-24"> {/* Added pt-24 for fixed header */}
+    <div className="bg-gray-900 text-white p-8 max-w-7xl mx-auto pt-24"> 
       <h2 className="text-3xl font-bold mb-8 flex items-center justify-center">
         <FaHeart className="mr-2 hover:scale-110 hover:text-blue-300" /> Your Favorites
       </h2>

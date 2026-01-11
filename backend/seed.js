@@ -1,12 +1,10 @@
-
-
 const mongoose = require('mongoose');
 const Product = require('./models/Product');
 require('dotenv').config();
-
 mongoose.connect(process.env.MONGO_URI);
 
 const products = [
+
   // Electronics (10)
   { name: 'Wireless Headphones', description: 'Noise-cancelling.', price: 99.99, image: '/assets/Electronics/Wireless-Headphones.jpeg', category: 'Electronics', stock: 50, discount: 10 },
   { name: 'Smartphone', description: 'Latest Android.', price: 699.99, image: '/assets/Electronics/Smartphone.jpeg', category: 'Electronics', stock: 20, discount: 15 },
@@ -18,6 +16,7 @@ const products = [
   { name: 'Keyboard', description: 'Mechanical.', price: 79.99, image: '/assets/Electronics/Keyboard.jpeg', category: 'Electronics', stock: 35, discount: 10 },
   { name: 'Monitor', description: '4K UHD.', price: 499.99, image: '/assets/Electronics/Monitor.jpeg', category: 'Electronics', stock: 15, discount: 18 },
   { name: 'Router', description: 'Wi-Fi 6.', price: 89.99, image: '/assets/Electronics/Router.jpeg', category: 'Electronics', stock: 45, discount: 5 },
+  
   // Clothing (10)
   { name: 'T-Shirt', description: 'Cotton.', price: 19.99, image: '/assets/Clothing/T-Shirt.jpeg', category: 'Clothing', stock: 100, discount: 10 },
   { name: 'Jeans', description: 'Denim.', price: 49.99, image: '/assets/Clothing/Jeans.jpeg', category: 'Clothing', stock: 80, discount: 15 },
@@ -29,6 +28,7 @@ const products = [
   { name: 'Shorts', description: 'Casual.', price: 24.99, image: '/assets/Clothing/Shorts.jpeg', category: 'Clothing', stock: 75, discount: 10 },
   { name: 'Shoes', description: 'Formal.', price: 99.99, image: '/assets/Clothing/Shoes.jpeg', category: 'Clothing', stock: 50, discount: 15 },
   { name: 'Belt', description: 'Leather.', price: 19.99, image: '/assets/Clothing/Belt.jpeg', category: 'Clothing', stock: 85, discount: 5 },
+  
   // Home & Garden (10)
   { name: 'Coffee Maker', description: 'Automatic.', price: 59.99, image: '/assets/Home/Coffee-Maker.jpeg', category: 'Home & Garden', stock: 25, discount: 10 },
   { name: 'Lamp', description: 'Desk.', price: 29.99, image: '/assets/Home/Lamp.jpeg', category: 'Home & Garden', stock: 35, discount: 15 },
@@ -40,6 +40,7 @@ const products = [
   { name: 'Bookshelf', description: 'Wooden.', price: 99.99, image: '/assets/Home/Bookshelf.jpeg', category: 'Home & Garden', stock: 20, discount: 15 },
   { name: 'Curtains', description: 'Window.', price: 49.99, image: '/assets/Home/Curtains.jpeg', category: 'Home & Garden', stock: 30, discount: 10 },
   { name: 'Rug', description: 'Floor.', price: 79.99, image: '/assets/Home/Rug.jpeg', category: 'Home & Garden', stock: 40, discount: 5 },
+  
   // Groceries (10)
   { name: 'Rice', description: 'Basmati.', price: 9.99, image: '/assets/Groceries/Rice.jpeg', category: 'Groceries', stock: 100, discount: 10 },
   { name: 'Milk', description: 'Fresh.', price: 2.99, image: '/assets/Groceries/Milk.jpeg', category: 'Groceries', stock: 200, discount: 5 },
@@ -51,6 +52,7 @@ const products = [
   { name: 'Tea', description: 'Green.', price: 5.99, image: '/assets/Groceries/Tea.jpeg', category: 'Groceries', stock: 70, discount: 10 },
   { name: 'Sugar', description: 'White.', price: 1.49, image: '/assets/Groceries/Sugar.jpeg', category: 'Groceries', stock: 110, discount: 8 },
   { name: 'Oil', description: 'Olive.', price: 7.99, image: '/assets/Groceries/Oil.jpeg', category: 'Groceries', stock: 50, discount: 15 },
+  
   // Books (10)
   { name: 'Fiction Novel', description: 'Bestseller.', price: 14.99, image: '/assets/Books/Fiction-Novel.jpeg', category: 'Books', stock: 40, discount: 10 },
   { name: 'Cookbook', description: 'Recipes.', price: 19.99, image: '/assets/Books/Cookbook.jpeg', category: 'Books', stock: 30, discount: 15 },
@@ -62,6 +64,7 @@ const products = [
   { name: 'Self-Help', description: 'Motivational.', price: 16.99, image: '/assets/Books/Self-Help.jpeg', category: 'Books', stock: 45, discount: 10 },
   { name: 'Mystery', description: 'Thriller.', price: 18.99, image: '/assets/Books/Mystery.jpeg', category: 'Books', stock: 28, discount: 15 },
   { name: 'Art Book', description: 'Illustrated.', price: 39.99, image: '/assets/Books/Art-Book.jpeg', category: 'Books', stock: 18, discount: 5 },
+  
   // Sports (10)
   { name: 'Basketball', description: 'Official.', price: 29.99, image: '/assets/Sports/Basketball.jpeg', category: 'Sports', stock: 60, discount: 10 },
   { name: 'Tennis Racket', description: 'Pro.', price: 89.99, image: '/assets/Sports/Tennis-Racket.jpeg', category: 'Sports', stock: 25, discount: 15 },
@@ -73,6 +76,7 @@ const products = [
   { name: 'Boxing Gloves', description: 'Leather.', price: 59.99, image: '/assets/Sports/Boxing-Gloves.jpeg', category: 'Sports', stock: 20, discount: 15 },
   { name: 'Running Shoes', description: 'Lightweight.', price: 79.99, image: '/assets/Sports/Running-Shoes.jpeg', category: 'Sports', stock: 45, discount: 10 },
   { name: 'Treadmill', description: 'Home use.', price: 499.99, image: '/assets/Sports/Treadmill.jpeg', category: 'Sports', stock: 10, discount: 18 },
+  
   // Beauty (10)
   { name: 'Lipstick', description: 'Matte.', price: 9.99, image: '/assets/Beauty/Lipstick.jpeg', category: 'Beauty', stock: 120, discount: 10 },
   { name: 'Foundation', description: 'Liquid.', price: 19.99, image: '/assets/Beauty/Foundation.jpeg', category: 'Beauty', stock: 80, discount: 15 },

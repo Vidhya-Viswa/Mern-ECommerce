@@ -21,7 +21,9 @@ function Header() {
   return (
     <header className="fixed top-0 w-full bg-gray-900 text-white p-4 shadow-lg z-50">
       <nav className="max-w-7xl mx-auto flex justify-between items-center">
-        {/* Left: Shop Name */}
+        
+        {/* Left: Logo */}
+
         <div className="flex items-center">
           <motion.h1
             whileHover={{ scale: 1.1, rotate: 5 }}
@@ -31,7 +33,8 @@ function Header() {
           </motion.h1>
         </div>
 
-        {/* Center: Home, Products, Favorites */}
+        {/* Center: Navigation Links */}
+
         <div className="hidden md:flex items-center space-x-6">
           <Link to="/" className="text-white hover:text-blue-300 transition">
             <motion.div whileHover={{ scale: 1.1, rotate: 10 }} transition={{ duration: 0.3 }}>
@@ -49,6 +52,7 @@ function Header() {
         </div>
 
         {/* Right: USD, Cart, Login */}
+
         <div className="hidden md:flex items-center space-x-4">
           <select
             value={currency}
@@ -77,6 +81,7 @@ function Header() {
         </div>
 
         {/* Mobile Menu Toggle */}
+
         <button
           onClick={() => setMenuOpen(!menuOpen)}
           className="md:hidden text-white"
@@ -88,6 +93,7 @@ function Header() {
       </nav>
 
       {/* Mobile Menu */}
+      
       {menuOpen && (
         <motion.div
           initial={{ opacity: 0, y: -20 }}

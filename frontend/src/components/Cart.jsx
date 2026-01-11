@@ -7,6 +7,7 @@ import axios from 'axios';
 import PaymentModal from './PaymentModal';
 
 function Cart() {
+  const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000';
   const cartItems = useSelector(state => state.cart.items);
   const { token, user } = useSelector(state => state.auth);
   const dispatch = useDispatch();
@@ -20,8 +21,10 @@ function Cart() {
       navigate('/login');
       return;
     }
+
     // Proceed to payment if logged in
-    axios.post('http://localhost:5000/api/orders', { products: cartItems, total }, {
+
+    axios.post(`${API_URL}/api/orders`, { products: cartItems, total }, {
       headers: { Authorization: `Bearer ${token}` }
     })
       .then(() => setShowPayment(true))

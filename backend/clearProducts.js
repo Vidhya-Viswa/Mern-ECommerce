@@ -11,6 +11,7 @@ mongoose.connect(process.env.MONGO_URI)
 
     process.exit(0);
   })
+  
   .catch(err => {
     console.log('Error:', err);
     process.exit(1);

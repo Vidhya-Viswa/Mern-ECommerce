@@ -7,6 +7,7 @@ import { FaUser, FaLock } from 'react-icons/fa';
 import { motion } from 'framer-motion';
 
 function Login() {
+  const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000';
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const dispatch = useDispatch();
@@ -15,7 +16,7 @@ function Login() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post('http://localhost:5000/api/auth/login', { email, password });
+      const res = await axios.post(`${API_URL}/api/auth/login`, { email, password });
       dispatch(setAuth(res.data));
       navigate('/');
     } catch (err) {

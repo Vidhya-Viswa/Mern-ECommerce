@@ -10,7 +10,9 @@ function PaymentModal({ onClose }) {
 
   const handlePayment = (e) => {
     e.preventDefault();
+
     // Simulate payment
+    
     alert('Payment successful!');
     setShowReview(true);
   };

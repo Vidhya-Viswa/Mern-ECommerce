@@ -9,6 +9,7 @@ import { motion, useAnimation } from "framer-motion";
 import Footer from './Footer';
 
 function Home() {
+  const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000';
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
@@ -23,7 +24,7 @@ function Home() {
 
 
   useEffect(() => {
-    axios.get('http://localhost:5000/api/products')
+    axios.get(`${API_URL}/api/products`)
       .then(res => {
         setProducts(res.data);
         setLoading(false);
@@ -36,39 +37,37 @@ function Home() {
   }, []);
 
   const filteredProducts =
-  search.trim() === ""
-    ? products
-    : products.filter(p =>
+    search.trim() === ""
+      ? products
+      : products.filter(p =>
         p.name.toLowerCase().includes(search.toLowerCase())
       );
 
-
   const sliderSettings = {
-  dots: true,
-  infinite: true,
-  speed: 500,
-  slidesToShow: 4,
-  slidesToScroll: 1,
-  autoplay: true,
-  autoplaySpeed: 3000,
-  arrows: true,
-  centerMode: false,   // ❌ REMOVE centerMode
-  responsive: [
-    {
-      breakpoint: 1024,
-      settings: { slidesToShow: 3 }
-    },
-    {
-      breakpoint: 768,
-      settings: { slidesToShow: 2 }
-    },
-    {
-      breakpoint: 480,
-      settings: { slidesToShow: 1 }
-    }
-  ]
-};
-
+    dots: true,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 4,
+    slidesToScroll: 1,
+    autoplay: true,
+    autoplaySpeed: 3000,
+    arrows: true,
+    centerMode: false,
+    responsive: [
+      {
+        breakpoint: 1024,
+        settings: { slidesToShow: 3 }
+      },
+      {
+        breakpoint: 768,
+        settings: { slidesToShow: 2 }
+      },
+      {
+        breakpoint: 480,
+        settings: { slidesToShow: 1 }
+      }
+    ]
+  };
 
   const heroSliderSettings = {
     dots: true,
@@ -99,7 +98,9 @@ function Home() {
 
   return (
     <div className="bg-gray-900 text-white min-h-screen flex flex-col pt-20">
+      
       {/* Top Ad Banner */}
+
       <motion.div
         initial={{ opacity: 0, y: -50 }}
         animate={{ opacity: 1, y: 0 }}
@@ -109,6 +110,7 @@ function Home() {
       </motion.div>
 
       {/* Hero */}
+
       <section className="text-center py-16 px-4 max-w-4xl mx-auto">
         <motion.h1
           initial={{ opacity: 0, y: -50 }}
@@ -140,6 +142,7 @@ function Home() {
       </section>
 
       {/* Search & Location */}
+
       <section className="py-8 px-4 max-w-4xl mx-auto flex flex-col md:flex-row justify-center items-center space-y-4 md:space-y-0 md:space-x-4">
         <div className="flex items-center">
           <motion.div whileHover={{ scale: 1.2 }} transition={{ duration: 0.3 }}>
@@ -167,114 +170,113 @@ function Home() {
       </section>
 
       {/* Featured Products */}
-<section className="py-12 px-6 max-w-7xl mx-auto">
-  <h2 className="text-3xl font-bold text-center mb-10 text-blue-300">
-    {isSearching ? "Search Results" : "Featured Products"}
-  </h2>
 
-  {loading ? (
-    <p className="text-center">Loading products...</p>
-  ) : error ? (
-    <p className="text-center text-red-400">{error}</p>
-  ) : filteredProducts.length === 0 ? (
-    <p className="text-center">No products found</p>
-  ) : isSearching ? (
-    /* 🔷 GRID VIEW WHEN SEARCHING */
-    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-      {filteredProducts.map(p => (
-        <div
-          key={p._id}
-          className="bg-blue-900 rounded-xl shadow-lg p-4 flex flex-col"
-        >
-          <img
-            src={p.image}
-            alt={p.name}
-            className="w-full h-48 object-cover rounded-lg mb-4"
-          />
+      <section className="py-12 px-6 max-w-7xl mx-auto">
+        <h2 className="text-3xl font-bold text-center mb-10 text-blue-300">
+          {isSearching ? "Search Results" : "Featured Products"}
+        </h2>
 
-          <h3 className="font-semibold text-center truncate">
-            {p.name}
-          </h3>
+        {loading ? (
+          <p className="text-center">Loading products...</p>
+        ) : error ? (
+          <p className="text-center text-red-400">{error}</p>
+        ) : filteredProducts.length === 0 ? (
+          <p className="text-center">No products found</p>
+        ) : isSearching ? (
 
-          <p className="text-center mt-2">
-            {currency} {(p.price * rate).toFixed(2)}
-            {p.discount > 0 && (
-              <span className="text-green-400 ml-2">
-                ({p.discount}% OFF)
-              </span>
-            )}
-          </p>
+          /* 🔷 GRID VIEW WHEN SEARCHING */
 
-          <p
-            className={`text-sm text-center mt-1 ${
-              p.stock > 0 ? "text-green-400" : "text-red-400"
-            }`}
-          >
-            {p.stock > 0 ? `In Stock (${p.stock})` : "Out of Stock"}
-          </p>
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+            {filteredProducts.map(p => (
+              <div
+                key={p._id}
+                className="bg-blue-900 rounded-xl shadow-lg p-4 flex flex-col"
+              >
+                <img
+                  src={p.image}
+                  alt={p.name}
+                  className="w-full h-48 object-cover rounded-lg mb-4"
+                />
 
-          <button
-            onClick={() => dispatch(addToCart(p))}
-            disabled={p.stock === 0}
-            className="mt-auto bg-blue-500 hover:bg-blue-600 py-2 rounded-lg transition disabled:opacity-50"
-          >
-            Add to Cart
-          </button>
-        </div>
-      ))}
-    </div>
-  ) : (
-    /* 🔷 SLIDER VIEW WHEN NOT SEARCHING */
-    <Slider {...sliderSettings}>
-  {filteredProducts.slice(0, 10).map(p => (
-    <div key={p._id} className="px-3">
-      <div className="bg-blue-900 rounded-xl shadow-lg p-4 flex flex-col min-h-[420px]">
-        
-        <img
-          src={p.image}
-          alt={p.name}
-          onError={(e) => {
-            e.target.src = "https://via.placeholder.com/300x200?text=No+Image";
-          }}
-          className="w-full h-44 object-cover rounded-lg mb-4"
-        />
+                <h3 className="font-semibold text-center truncate">
+                  {p.name}
+                </h3>
 
-        <h3 className="text-lg font-semibold text-center line-clamp-1">
-          {p.name}
-        </h3>
+                <p className="text-center mt-2">
+                  {currency} {(p.price * rate).toFixed(2)}
+                  {p.discount > 0 && (
+                    <span className="text-green-400 ml-2">
+                      ({p.discount}% OFF)
+                    </span>
+                  )}
+                </p>
 
-        <p className="text-center mt-2">
-          {currency} {(p.price * rate).toFixed(2)}
-        </p>
+                <p
+                  className={`text-sm text-center mt-1 ${p.stock > 0 ? "text-green-400" : "text-red-400"
+                    }`}
+                >
+                  {p.stock > 0 ? `In Stock (${p.stock})` : "Out of Stock"}
+                </p>
 
-        <p className={`text-sm text-center mt-1 ${
-          p.stock > 0 ? "text-green-400" : "text-red-400"
-        }`}>
-          {p.stock > 0 ? `In Stock (${p.stock})` : "Out of Stock"}
-        </p>
+                <button
+                  onClick={() => dispatch(addToCart(p))}
+                  disabled={p.stock === 0}
+                  className="mt-auto bg-blue-500 hover:bg-blue-600 py-2 rounded-lg transition disabled:opacity-50"
+                >
+                  Add to Cart
+                </button>
+              </div>
+            ))}
+          </div>
+        ) : (
 
-        <button
-          onClick={() => dispatch(addToCart(p))}
-          disabled={p.stock === 0}
-          className="mt-auto bg-blue-500 hover:bg-blue-600 py-2 rounded-lg transition disabled:opacity-50"
-        >
-          Add to Cart
-        </button>
+          /* 🔷 SLIDER VIEW WHEN NOT SEARCHING */
 
-      </div>
-    </div>
-  ))}
-</Slider>
+          <Slider {...sliderSettings}>
+            {filteredProducts.slice(0, 10).map(p => (
+              <div key={p._id} className="px-3">
+                <div className="bg-blue-900 rounded-xl shadow-lg p-4 flex flex-col min-h-[420px]">
 
-  )}
-</section>
+                  <img
+                    src={p.image}
+                    alt={p.name}
+                    onError={(e) => {
+                      e.target.src = "https://via.placeholder.com/300x200?text=No+Image";
+                    }}
+                    className="w-full h-44 object-cover rounded-lg mb-4"
+                  />
 
+                  <h3 className="text-lg font-semibold text-center line-clamp-1">
+                    {p.name}
+                  </h3>
 
+                  <p className="text-center mt-2">
+                    {currency} {(p.price * rate).toFixed(2)}
+                  </p>
 
+                  <p className={`text-sm text-center mt-1 ${p.stock > 0 ? "text-green-400" : "text-red-400"
+                    }`}>
+                    {p.stock > 0 ? `In Stock (${p.stock})` : "Out of Stock"}
+                  </p>
 
-      
+                  <button
+                    onClick={() => dispatch(addToCart(p))}
+                    disabled={p.stock === 0}
+                    className="mt-auto bg-blue-500 hover:bg-blue-600 py-2 rounded-lg transition disabled:opacity-50"
+                  >
+                    Add to Cart
+                  </button>
+
+                </div>
+              </div>
+            ))}
+          </Slider>
+
+        )}
+      </section>
 
       {/* Lucky Draw Game */}
+
       <section className="py-8 px-4 max-w-4xl mx-auto text-center">
         <h2 className="text-2xl font-bold mb-8">Lucky Draw Winners - Spin to Win!</h2>
         <div className="bg-blue-800 p-8 rounded-lg shadow-lg">
@@ -312,6 +314,7 @@ function Home() {
       </section>
 
       {/* Customer Testimonials - Horizontal Row */}
+      
       <section className="py-8 px-4 max-w-7xl mx-auto">
         <h2 className="text-2xl font-bold text-center mb-8">Customer Testimonials</h2>
         <div className="flex flex-wrap justify-center gap-6">
