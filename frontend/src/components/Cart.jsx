@@ -7,7 +7,7 @@ import axios from 'axios';
 import PaymentModal from './PaymentModal';
 
 function Cart() {
-  const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000';
+  const API_URL = import.meta.env.VITE_API_URL;
   const cartItems = useSelector(state => state.cart.items);
   const { token, user } = useSelector(state => state.auth);
   const dispatch = useDispatch();

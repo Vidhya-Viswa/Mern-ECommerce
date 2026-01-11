@@ -7,7 +7,7 @@ import { FaHeart, FaShoppingCart } from 'react-icons/fa';
 import { motion } from 'framer-motion';
 
 function Products() {
-  const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000';
+  const API_URL = import.meta.env.VITE_API_URL;
   const [products, setProducts] = useState([]);
   const [categories, setCategories] = useState({
     Electronics: true, Clothing: true, 'Home & Garden': true, Groceries: true, Books: true, Sports: true, Beauty: true

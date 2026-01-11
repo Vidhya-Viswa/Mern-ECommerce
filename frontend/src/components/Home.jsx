@@ -9,7 +9,7 @@ import { motion, useAnimation } from "framer-motion";
 import Footer from './Footer';
 
 function Home() {
-  const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000';
+  const API_URL = import.meta.env.VITE_API_URL;
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
@@ -314,7 +314,7 @@ function Home() {
       </section>
 
       {/* Customer Testimonials - Horizontal Row */}
-      
+
       <section className="py-8 px-4 max-w-7xl mx-auto">
         <h2 className="text-2xl font-bold text-center mb-8">Customer Testimonials</h2>
         <div className="flex flex-wrap justify-center gap-6">

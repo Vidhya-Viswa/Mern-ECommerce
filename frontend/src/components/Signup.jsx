@@ -7,7 +7,7 @@ import { setAuth } from '../redux/slices/authSlice';
 import { motion } from 'framer-motion';
 
 function Signup() {
-  const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000';
+  const API_URL = import.meta.env.VITE_API_URL;
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
